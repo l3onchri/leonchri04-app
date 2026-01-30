@@ -1,0 +1,23 @@
+name: Sync to Hugging Face Spaces
+
+on:
+  push:
+    branches: [main] # Parte ogni volta che fai "git push" sul ramo main
+  workflow_dispatch: # Permette di avviarlo anche a mano
+
+jobs:
+  sync-to-hub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          lfs: true # Supporto per file grandi se servono
+
+      - name: Push to Hugging Face Hub
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }} # Legge la chiave che hai salvato
+        # Questo comando prende il codice da GitHub e lo SOVRASCRIVE su Hugging Face
+        # Usa --force per essere sicuro che GitHub sia la "verità assoluta"
+        run: |
+          git push --force https://l3onchri:$HF_TOKEN@huggingface.co/spaces/l3onchri/antigravity-backend main
