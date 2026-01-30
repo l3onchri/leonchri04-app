@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - APIFY_API_KEY=${APIFY_API_KEY}
+      - OPENROUTER_MODEL_CLAUDE=${OPENROUTER_MODEL_CLAUDE:-google/gemini-2.0-flash-001}
+      - OPENROUTER_MODEL_PERPLEXITY=${OPENROUTER_MODEL_PERPLEXITY:-perplexity/sonar}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-http://localhost:3000,http://frontend:3000}
+    volumes:
+      - ./backend:/app/backend
+      - ./execution:/app/execution
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    depends_on:
+      - backend

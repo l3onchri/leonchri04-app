@@ -1,0 +1,29 @@
+# Variabili d'ambiente
+.env
+
+# Credenziali Google OAuth
+credentials.json
+token.json
+
+# File intermedi
+.tmp/
+
+# Node.js
+node_modules/
+.next/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
