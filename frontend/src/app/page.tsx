@@ -48,9 +48,11 @@ export default function Home() {
     setError(null);
     setCurrentStep("transcribing");
 
-    // Sanitize API URL: remove quotes and trailing slashes
+    // Sanitize API URL: remove quotes, trailing slashes, and fix common typos (https:77 -> https://)
     let apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
     apiUrl = apiUrl.replace(/['"]+/g, '').replace(/\/$/, '');
+    // Fix: User likely typed 'https:77' (missing Shift+7 for / on IT layout)
+    apiUrl = apiUrl.replace('https:77', 'https://').replace('http:77', 'http://');
 
     try {
       console.log("Calling transcribe API at:", apiUrl, "for URL:", url);
