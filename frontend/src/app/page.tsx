@@ -50,7 +50,8 @@ export default function Home() {
 
     // Sanitize API URL: remove quotes, trailing slashes, and fix common typos (https:77 -> https://)
     let apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-    apiUrl = apiUrl.replace(/['"]+/g, '').replace(/\/$/, '');
+    // Remove all whitespace and non-printable characters
+    apiUrl = apiUrl.replace(/[\s\n\r"']+/g, '').replace(/\/$/, '');
     // Fix: User likely typed 'https:77' (missing Shift+7 for / on IT layout)
     apiUrl = apiUrl.replace('https:77', 'https://').replace('http:77', 'http://');
 
