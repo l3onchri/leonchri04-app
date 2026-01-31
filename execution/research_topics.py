@@ -17,7 +17,7 @@ def research_topics(topics: list) -> str:
     Usa Perplexity Sonar via OpenRouter.
     """
     api_key = os.getenv("OPENROUTER_API_KEY")
-    model = os.getenv("OPENROUTER_MODEL_PERPLEXITY", "perplexity/sonar-reasoning")
+    model = os.getenv("OPENROUTER_MODEL_PERPLEXITY", "perplexity/sonar")
     
     if not api_key:
         raise ValueError("OPENROUTER_API_KEY mancante nel file .env")
